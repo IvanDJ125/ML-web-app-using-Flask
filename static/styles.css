@@ -1,0 +1,82 @@
+/* General Resets */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Modern font for better readability */
+}
+
+body {
+    background-color: #343a40; /* Dark gray background */
+    color: #f8f9fa; /* Light gray text for high contrast */
+    padding: 20px;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #212529; /* Slightly lighter gray for the form background */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Stronger shadow for a "pop-out" effect */
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #f8f9fa; /* Light text color for readability */
+}
+
+input[type="text"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: #495057; /* Darker element backgrounds for depth */
+    border: 2px solid #ced4da; /* Grey border to pop-out the elements */
+    border-radius: 4px;
+    color: #ffffff; /* White text inside inputs for contrast */
+    height: 40px;
+}
+
+input[type="text"]:focus,
+select:focus {
+    border-color: #80bdff; /* Blue focus border */
+    outline: none;
+}
+
+button.btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff; /* Standard Bootstrap primary blue for consistency */
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+button.btn:hover {
+    background-color: #0056b3; /* Darker blue on hover for interaction feedback */
+}
+
+/* Responsive Design Adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+        margin: 10px;
+    }
+
+    label, input, select, button {
+        font-size: 14px; /* Slightly smaller text on small devices */
+    }
+}
+
