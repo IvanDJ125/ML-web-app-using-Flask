@@ -4,7 +4,7 @@ import joblib
 import pandas as pd
 
 app = Flask(__name__)
-model = joblib.load('/workspaces/ML-web-app-using-Flask/src/final_rf_model.joblib')
+model = joblib.load('/workspaces/ML-web-app-using-Flask/final_rf_model.joblib')
 
 @app.route('/')
 def home():
