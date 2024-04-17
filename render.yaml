@@ -3,5 +3,3 @@ services:
     name: example-service
     env: docker
     dockerfilePath: Dockerfile
-    regions:
-      - frankfurt

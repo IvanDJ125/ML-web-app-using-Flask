@@ -2,9 +2,11 @@ from flask import Flask, request, render_template
 import numpy as np
 import joblib
 import pandas as pd
+import os
 
 app = Flask(__name__)
-model = joblib.load('/workspaces/ML-web-app-using-Flask/final_rf_model.joblib')
+model_path = os.path.join(os.path.dirname(__file__), 'final_rf_model.joblib')
+model = joblib.load(model_path)
 
 @app.route('/')
 def home():
