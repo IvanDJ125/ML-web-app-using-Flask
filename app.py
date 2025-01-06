@@ -1,49 +1,72 @@
 from flask import Flask, request, render_template
-import numpy as np
-import joblib
-import pandas as pd
+from pickle import load
 import os
 
+# Define the Flask app
 app = Flask(__name__)
-model_path = os.path.join(os.path.dirname(__file__), 'final_rf_model.joblib')
-model = joblib.load(model_path)
 
-@app.route('/')
-def home():
-    return render_template('index.html')
+# Get the absolute path to the model file
+model_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "model/pass_or_fail_decision_tree_classifier_random_42.sav")
 
-@app.route('/predict', methods=['POST'])
-def predict():
-    # Mapping form inputs to model features
-    data = {
-        'Store_id': request.form['store_id'],
-        'Holiday': 1 if request.form['holiday'] == 'Yes' else 0,
-        '#Order': request.form['order'],
-        'Day_of_Week': request.form['day_of_week'],
-        'Month': request.form['month'],
-        'Store_Type_S1': 1 if request.form['store_type'] == 'S1' else 0,
-        'Store_Type_S2': 1 if request.form['store_type'] == 'S2' else 0,
-        'Store_Type_S3': 1 if request.form['store_type'] == 'S3' else 0,
-        'Store_Type_S4': 1 if request.form['store_type'] == 'S4' else 0,
-        'Location_Type_L1': 1 if request.form['location_type'] == 'L1' else 0,
-        'Location_Type_L2': 1 if request.form['location_type'] == 'L2' else 0,
-        'Location_Type_L3': 1 if request.form['location_type'] == 'L3' else 0,
-        'Location_Type_L4': 1 if request.form['location_type'] == 'L4' else 0,
-        'Location_Type_L5': 1 if request.form['location_type'] == 'L5' else 0,
-        'Region_Code_R1': 1 if request.form['region_code'] == 'R1' else 0,
-        'Region_Code_R2': 1 if request.form['region_code'] == 'R2' else 0,
-        'Region_Code_R3': 1 if request.form['region_code'] == 'R3' else 0,
-        'Region_Code_R4': 1 if request.form['region_code'] == 'R4' else 0,
-        'Discount_No': 1 if request.form['discount'] == 'No' else 0,
-        'Discount_Yes': 1 if request.form['discount'] == 'Yes' else 0
-    }
+# Load the model with error handling
+try:
+    model = load(open(model_path, "rb"))
+    print(f"Model loaded successfully from {model_path}")
+except FileNotFoundError:
+    print(f"Error: Model file not found at {model_path}")
+    exit(1)
 
-    # Convert data into DataFrame for prediction
-    df = pd.DataFrame([data])
-    prediction = model.predict(df)
-    output = round(prediction[0], 2)
+# Define class labels
+class_dict = {
+    '0': 'Fail',
+    '1': 'Pass'
+}
 
-    return render_template('index.html', prediction_text=f'Predicted Store Sales: ${output}')
+# Define the main route for GET and POST requests
+@app.route("/", methods=["GET", "POST"])
+def index():
+    if request.method == "POST":
+        try:
+            # Numeric inputs
+            val1 = float(request.form["val1"])
+            val2 = float(request.form["val2"])
+            val3 = float(request.form["val3"])
+            val4 = float(request.form["val4"])
+            
+            # Dropdown inputs for Parental Involvement
+            parental_involvement = request.form["parental_involvement"]
+            if parental_involvement == "high":
+                val5, val6, val7 = 1, 0, 0
+            elif parental_involvement == "medium":
+                val5, val6, val7 = 0, 0, 1
+            elif parental_involvement == "low":
+                val5, val6, val7 = 0, 1, 0
+            
+            # Dropdown inputs for Access to Resources
+            resources = request.form["resources"]
+            if resources == "high":
+                val8, val9, val10 = 1, 0, 0
+            elif resources == "medium":
+                val8, val9, val10 = 0, 0, 1
+            elif resources == "low":
+                val8, val9, val10 = 0, 1, 0
+            
+            # Prepare data for prediction
+            data = [[val1, val2, val3, val4, val5, val6, val7, val8, val9, val10]]
+            prediction = str(model.predict(data)[0])
+            pred_class = class_dict[prediction]
+        except Exception as e:
+            pred_class = f"Error in prediction: {str(e)}"
+    else:
+        # Handle initial GET request
+        pred_class = None
+
+    # Render the template with the prediction result (or None if GET request)
+    return render_template("index.html", prediction=pred_class)
+
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Use the port provided by Render, or default to 5000
+    port = int(os.environ.get("PORT", 5000))
+    # Set host to 0.0.0.0 to be accessible externally
+    app.run(host="0.0.0.0", port=port, debug=True)

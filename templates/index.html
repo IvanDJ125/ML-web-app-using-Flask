@@ -3,86 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WOMart Sales Prediction</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Student Test Result Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>Store Sales Prediction</h1>
-        <form action="{{ url_for('predict')}}" method="post">
-            <!-- Store Type Dropdown -->
-            <div class="input-group">
-                <label for="store_type">Store Type:</label>
-                <select name="store_type" id="store_type" required>
-                    <option value="">Please Select</option>
-                    <option value="S1">Store Type S1</option>
-                    <option value="S2">Store Type S2</option>
-                    <option value="S3">Store Type S3</option>
-                    <option value="S4">Store Type S4</option>
-                </select>
-            </div>
-            <!-- Location Type Dropdown -->
-            <div class="input-group">
-                <label for="location_type">Location Type:</label>
-                <select name="location_type" id="location_type" required>
-                    <option value="">Please Select</option>
-                    <option value="L1">Location Type L1</option>
-                    <option value="L2">Location Type L2</option>
-                    <option value="L3">Location Type L3</option>
-                    <option value="L4">Location Type L4</option>
-                    <option value="L5">Location Type L5</option>
-                </select>
-            </div>
-            <!-- Region Code Dropdown -->
-            <div class="input-group">
-                <label for="region_code">Region Code:</label>
-                <select name="region_code" id="region_code" required>
-                    <option value="">Please Select</option>
-                    <option value="R1">Region Code R1</option>
-                    <option value="R2">Region Code R2</option>
-                    <option value="R3">Region Code R3</option>
-                    <option value="R4">Region Code R4</option>
-                </select>
-            </div>
-            <!-- Discount Dropdown -->
-            <div class="input-group">
-                <label for="discount">Discount:</label>
-                <select name="discount" id="discount" required>
-                    <option value="">Please Select</option>
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                </select>
-            </div>
-            <!-- Holiday Dropdown -->
-            <div class="input-group">
-                <label for="holiday">Holiday:</label>
-                <select name="holiday" id="holiday" required>
-                    <option value="">Please Select</option>
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                </select>
-            </div>
-            <!-- Other Features as Text Inputs -->
-            <div class="input-group">
-                <label for="store_id">Store ID:</label>
-                <input type="text" name="store_id" id="store_id" required>
-            </div>
-            <div class="input-group">
-                <label for="order">#Order:</label>
-                <input type="text" name="order" id="order" required>
-            </div>
-            <div class="input-group">
-                <label for="day_of_week">Day of Week:</label>
-                <input type="text" name="day_of_week" id="day_of_week" required>
-            </div>
-            <div class="input-group">
-                <label for="month">Month:</label>
-                <input type="text" name="month" id="month" required>
-            </div>
-            <button type="submit" class="btn">Predict Sales</button>
+        <h1>Student Test Result Prediction</h1>
+        <p>Enter the required details below to predict if the student will pass or fail.</p>
+        
+        <form action="/" method="post">
+            <label for="val1">Hours Studied (0 - 50 hours):</label>
+            <input type="number" step="any" name="val1" id="val1" required>
+            
+            <label for="val2">Attendance (0 - 100%):</label>
+            <input type="number" step="any" name="val2" id="val2" required>
+            
+            <label for="val3">Previous Score (0 - 100%):</label>
+            <input type="number" step="any" name="val3" id="val3" required>
+            
+            <label for="val4">Tutoring Sessions (0 - 10 sessions):</label>
+            <input type="number" step="any" name="val4" id="val4" required>
+            
+            <label for="parental_involvement">Parental Involvement:</label>
+            <select name="parental_involvement" id="parental_involvement" required>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+            </select>
+            
+            <label for="resources">Access to Resources:</label>
+            <select name="resources" id="resources" required>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+            </select>
+            
+            <input type="submit" value="Predict">
         </form>
-        {% if prediction_text %}
-            <h2>{{ prediction_text }}</h2>
+        
+        {% if prediction != None %}
+            <div class="result">
+                <h3>Prediction: {{ prediction }}</h3>
+            </div>
         {% endif %}
     </div>
 </body>

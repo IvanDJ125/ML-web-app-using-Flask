@@ -1,82 +1,90 @@
-/* General Resets */
-* {
-    box-sizing: border-box;
+/* General styling */
+body {
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Modern font for better readability */
+    background-color: #f4f4f4;
+    color: #333;
 }
 
-body {
-    background-color: #343a40; /* Dark gray background */
-    color: #f8f9fa; /* Light gray text for high contrast */
-    padding: 20px;
-    font-size: 16px;
-    line-height: 1.5;
-}
-
+/* Container */
 .container {
     max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #212529; /* Slightly lighter gray for the form background */
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Stronger shadow for a "pop-out" effect */
+    margin: 50px auto;
+    background: #fff;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.input-group {
+/* Header styling */
+h1 {
+    text-align: center;
+    color: #444;
     margin-bottom: 20px;
 }
 
+p {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* Form styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
 label {
-    display: block;
-    margin-bottom: 5px;
+    font-size: 14px;
     font-weight: bold;
-    color: #f8f9fa; /* Light text color for readability */
+    color: #555;
 }
 
-input[type="text"],
-select {
-    width: 100%;
+input[type="number"] {
     padding: 10px;
-    margin-bottom: 10px;
-    background: #495057; /* Darker element backgrounds for depth */
-    border: 2px solid #ced4da; /* Grey border to pop-out the elements */
-    border-radius: 4px;
-    color: #ffffff; /* White text inside inputs for contrast */
-    height: 40px;
-}
-
-input[type="text"]:focus,
-select:focus {
-    border-color: #80bdff; /* Blue focus border */
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
     outline: none;
 }
 
-button.btn {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff; /* Standard Bootstrap primary blue for consistency */
-    color: #ffffff;
+input[type="number"]:focus {
+    border-color: #786;
+    box-shadow: 0 0 5px rgba(120, 96, 120, 0.5);
+}
+
+/* Button styling */
+input[type="submit"] {
+    padding: 12px;
+    background-color: #786;
+    color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
+    font-size: 16px;
     cursor: pointer;
-    font-size: 18px;
-    font-weight: bold;
+    margin-top: 10px;
 }
 
-button.btn:hover {
-    background-color: #0056b3; /* Darker blue on hover for interaction feedback */
+input[type="submit"]:hover {
+    background-color: #555;
 }
 
-/* Responsive Design Adjustments */
-@media (max-width: 768px) {
-    .container {
-        padding: 10px;
-        margin: 10px;
-    }
-
-    label, input, select, button {
-        font-size: 14px; /* Slightly smaller text on small devices */
-    }
+/* Result styling */
+.result {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #eef9f1;
+    border: 1px solid #d4efd9;
+    border-radius: 5px;
+    text-align: center;
 }
 
+.result h3 {
+    color: #2d7a34;
+    margin: 0;
+}
